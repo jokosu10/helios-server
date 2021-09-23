@@ -35,7 +35,7 @@ More than <b>2,000,000 votes</b> have been cast using Helios.
   <p style="font-size: 1.4em;">
     {{settings.WELCOME_MESSAGE|safe}}
   </p>
-  
+
   {% if elections|length %}
   <p>
     {% for election in elections %}
@@ -46,10 +46,10 @@ More than <b>2,000,000 votes</b> have been cast using Helios.
     {% endfor %}
   </p>
   {% else %}
-  <h4>no featured elections at the moment</h4>
+  <h4>Tidak ada pemilihan untuk saat ini</h4>
   {% endif %}
 {% endif %}
-  
+
 </div>
 
 <div class="large-3 columns" id="mystuff">
@@ -70,12 +70,12 @@ More than <b>2,000,000 votes</b> have been cast using Helios.
 <em>none yet</em>
 {% endif %}
 <div class="row right">
-<a class="tiny button" href="{% url "elections@administered" %}">see all</a>
+<a class="tiny button" href="{% url "elections@administered" %}">Lihat Semua</a>
 </div>
 <div class="row"></div>
 {% endif %}
 
-<h5 class="subheader">Recent Votes</h5>
+<h5 class="subheader">Pemilihan Terahkir</h5>
 {% if elections_voted %}
 <ul>
 {% for election in elections_voted %}
@@ -85,7 +85,7 @@ More than <b>2,000,000 votes</b> have been cast using Helios.
 {% else %}
 <em>none yet</em>
 {% endif %}
-<div class="row right"><a class="tiny button" href="{% url "elections@voted" %}">see all</a></div>
+<div class="row right"><a class="tiny button" href="{% url "elections@voted" %}">Lihat Semua</a></div>
 <div class="row"></div>
 {% else %}
 {% if settings.SHOW_LOGIN_OPTIONS %}

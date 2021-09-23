@@ -1,0 +1,47 @@
+version: '3.6'
+
+services:
+  engine:
+    container_name: 'helios-server-source'
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    volumes:
+      - './:/usr/src/app'
+    expose:
+      - 5000
+    environment:
+      DEBUG: 'true'
+    depends_on:
+      - engine-db
+    restart: on-failure
+    command: sh -c "python manage.py makemigrations &&
+                    python manage.py migrate &&
+                    gunicorn wsgi:application --bind 0.0.0.0:5000"
+
+  engine-db:
+    container_name: 'helios-server-source-db'
+    build:
+      context: ./services/db
+      dockerfile: Dockerfile
+    volumes:
+      - engine-db_volume:/var/lib/postgresql/data
+    ports:
+      - 5432:5432
+    environment:
+      - POSTGRES_USER=amazinguser
+      - POSTGRES_PASSWORD=amazingPassword
+
+  nginx:
+    container_name: 'helios-server-source-nginx'
+    build:
+      context: ./services/nginx
+      dockerfile: Dockerfile
+    restart: on-failure
+    ports:
+      - 5000:80
+    depends_on:
+      - engine
+
+volumes:
+  engine-db_volume:

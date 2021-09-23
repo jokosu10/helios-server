@@ -16,7 +16,7 @@ def get_from_env(var, default):
 
 DEBUG = (get_from_env('DEBUG', '1') == '1')
 
-# add admins of the form: 
+# add admins of the form:
 #    ('Ben Adida', 'ben@adida.net'),
 # if you want to be emailed about errors.
 ADMINS = (
@@ -40,6 +40,10 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'helios',
         'CONN_MAX_AGE': 600,
+        'USER': 'amazinguser',
+        'PASSWORD': 'amazingPassword',
+        'HOST': 'engine-db',
+        'PORT': '5432'
     },
 }
 
@@ -178,7 +182,7 @@ LOGOUT_ON_CONFIRMATION = True
 
 # The two hosts are here so the main site can be over plain HTTP
 # while the voting URLs are served over SSL.
-URL_HOST = get_from_env("URL_HOST", "http://localhost:8000").rstrip("/")
+URL_HOST = get_from_env("URL_HOST", "http://localhost:5000").rstrip("/")
 
 # IMPORTANT: you should not change this setting once you've created
 # elections, as your elections' cast_url will then be incorrect.
@@ -284,5 +288,5 @@ if ROLLBAR_ACCESS_TOKEN:
   MIDDLEWARE += ['rollbar.contrib.django.middleware.RollbarNotifierMiddleware',]
   ROLLBAR = {
     'access_token': ROLLBAR_ACCESS_TOKEN,
-    'environment': 'development' if DEBUG else 'production',  
+    'environment': 'development' if DEBUG else 'production',
   }
